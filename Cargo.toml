@@ -1,0 +1,50 @@
+[workspace]
+resolver = "2"
+members = [
+    "driver-display-mipidsi",
+    "driver-interface",
+    "kernel",
+    "kernel-logger",
+    "platform-esp",
+    "riscv",
+    "xtask",
+]
+default-members = ["xtask"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+
+[workspace.dependencies]
+driver-display-mipidsi = { path = "driver-display-mipidsi" }
+driver-interface = { path = "driver-interface" }
+kernel-logger = { path = "kernel-logger" }
+platform-esp = { path = "platform-esp" }
+riscv = { path = "riscv" }
+
+log = "0.4"
+critical-section = "1.1.3"
+fugit = "0.3.7"
+cfg-if = "1.0.0"
+embedded-hal = "1.0.0"
+embedded-hal-bus = "0.2.0"
+embedded-graphics = "0.8.1"
+static_cell = { version = "2.1.0" }
+
+[profile.dev]
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
+debug = 2
+debug-assertions = false
+incremental = false
+overflow-checks = false
+
+[patch.crates-io]
+# backported fix for https://github.com/esp-rs/esp-hal/issues/2102
+esp-hal = { git = "https://github.com/avafloww/esp-hal.git", rev = "ebcefe73ee5c6977c631e42d39d8143682478d58" }

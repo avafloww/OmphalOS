@@ -1,0 +1,20 @@
+[package]
+name = "driver-display-mipidsi"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+driver-interface.workspace = true
+embedded-graphics.workspace = true
+embedded-hal.workspace = true
+embedded-hal-bus.workspace = true
+critical-section.workspace = true
+cfg-if.workspace = true
+
+mipidsi = "0.8.0"
+display-interface = "0.5.0"
+display-interface-spi = "0.5.0"
+
+[features]
+default = []
+st7789 = []

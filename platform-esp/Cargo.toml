@@ -1,0 +1,65 @@
+[package]
+name = "platform-esp"
+version.workspace = true
+edition.workspace = true
+build = "build.rs"
+
+[dependencies]
+log.workspace = true
+critical-section.workspace = true
+fugit.workspace = true
+embedded-hal.workspace = true
+embedded-hal-bus.workspace = true
+driver-interface.workspace = true
+cfg-if.workspace = true
+static_cell.workspace = true
+kernel-logger.workspace = true
+
+esp-hal = { version = "0.20.1", features = ["place-spi-driver-in-ram"] }
+esp-backtrace = { version = "0.14.0", features = [
+    "panic-handler",
+    "exception-handler",
+    "println",
+] }
+
+driver-display-mipidsi = { workspace = true, optional = true }
+
+[features]
+default = ["kernel-logger/platform-esp"]
+
+# Target boards/devices
+target-lilygo_t_deck = [
+    "cpu-esp32s3",
+    "opsram-8m",
+    "flash-16m",
+    "driver-display-mipidsi",
+    "driver-display-mipidsi/st7789",
+]
+target-lilygo_t_watch_s3 = [
+    "cpu-esp32s3",
+    "opsram-8m",
+    "flash-16m",
+    "driver-display-mipidsi",
+    "driver-display-mipidsi/st7789",
+]
+
+# CPU types
+cpu-esp32s3 = [
+    "esp-hal/esp32s3",
+    "esp-backtrace/esp32s3",
+    "kernel-logger/cpu-esp32s3",
+]
+
+# Flash size
+flash-4m = []
+flash-8m = []
+flash-16m = []
+
+# PSRAM size
+psram-2m = ["esp-hal/psram-2m"]
+psram-4m = ["esp-hal/psram-4m"]
+psram-8m = ["esp-hal/psram-8m"]
+opsram-2m = ["esp-hal/opsram-2m"]
+opsram-4m = ["esp-hal/opsram-4m"]
+opsram-8m = ["esp-hal/opsram-8m"]
+opsram-16m = ["esp-hal/opsram-16m"]

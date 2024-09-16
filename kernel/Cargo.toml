@@ -1,0 +1,36 @@
+[package]
+name = "kernel"
+version.workspace = true
+edition.workspace = true
+build = "build.rs"
+
+[dependencies]
+# Workspace
+log.workspace = true
+critical-section.workspace = true
+fugit.workspace = true
+driver-interface.workspace = true
+cfg-if.workspace = true
+embedded-hal.workspace = true
+embedded-hal-bus.workspace = true
+embedded-graphics.workspace = true
+static_cell.workspace = true
+kernel-logger.workspace = true
+
+# Platforms
+platform-esp = { path = "../platform-esp", optional = true }
+
+# Misc
+build-info = { version = "0.0.38", default-features = false }
+elf = { version = "0.7.4", default-features = false, features = [] }
+ringbuf = { version = "0.4.4", default-features = false, features = ["alloc"] }
+
+[build-dependencies]
+build-info-build = "0.0.38"
+
+[features]
+default = []
+
+# Target boards/devices
+target-lilygo_t_deck = ["platform-esp/target-lilygo_t_deck"]
+target-lilygo_t_watch_s3 = ["platform-esp/target-lilygo_t_watch_s3"]
